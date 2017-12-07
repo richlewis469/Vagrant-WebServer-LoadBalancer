@@ -19,12 +19,37 @@ if not plugins_to_install.empty?
 end
 # Completed Defining Some Oracle / Use Case Flags
 
+# Display Message so users know how to access the demo.
+$msg = <<MSG_EOF
+------------------------------------------------------
+Vagrant Web Server / Load Balancer, accessible at localhost (127.0.0.1)
+
+List:
+- C:\> vagrant status
+Access:
+- C:\> vagrant ssh loadbalancer
+- C:\> vagrant ssh webserver1
+- C:\> vagrant ssh webserver2
+- C:\> vagrant ssh webserver3
+
+- Load Balancer running at http://127.0.0.1:8080
+  Reload to cycle through each Web Server
+------------------------------------------------------
+MSG_EOF
+
 ##############################################################################
 WEBSERVER_NODE_COUNT = 3
 
 Vagrant.configure("2") do |config|
 
-  # This demo will use Oracle Linux 7.4 mini server image.
+  # This demo will use Oracle Linux 7 server image.
+
+  # You can search for boxes from the Vagrant Cloud at https://vagrantcloud.com/search
+  # config.vm.box = "oravirt/ol73"
+  # config.vm.box = "oravirt/ol74"
+
+  # or Oracle Linux boxes at http://yum.oracle.com/boxes
+  config.vm.box_url = "http://yum.oracle.com/boxes/oraclelinux/ol74/ol74.box"
   config.vm.box = "ol74"
 
   # Share an additional folder to the guest VM, default is "share" in the current directory.
